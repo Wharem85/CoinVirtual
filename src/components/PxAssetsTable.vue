@@ -21,6 +21,7 @@
       >
         <td>
           <img
+            class="w-6 h-6"
             :src="`https://static.coincap.io/assets/icons/${a.symbol.toLowerCase()}@2x.png`"
             :alt="a.name"
           />
@@ -32,13 +33,19 @@
           {{ a.name }}
         </td>
         <td>
-          {{ a.priceUsd }}
+          {{ dollarFilter(a.priceUsd) }}
         </td>
         <td>
-          {{ a.marketCapUsd }}
+          {{ dollarFilter(a.marketCapUsd) }}
         </td>
-        <td>
-          {{ a.changePercent24Hr }}
+        <td
+          :class="
+            a.changePercent24Hr.includes('-')
+              ? 'text-red-600'
+              : 'text-green-600'
+          "
+        >
+          {{ percentFilter(a.changePercent24Hr) }}
         </td>
         <td class="hidden sm:block"></td>
       </tr>
@@ -47,8 +54,9 @@
 </template>
 
 <script>
+import { dollarFilter, percentFilter } from "@/filters";
 export default {
-  name: 'PxAssetsTable',
+  name: "PxAssetsTable",
 
   props: {
     assets: {
@@ -56,16 +64,23 @@ export default {
       default: () => [],
     },
   },
-}
+
+  setup() {
+    return {
+      dollarFilter,
+      percentFilter,
+    };
+  },
+};
 </script>
 
 <style scoped>
 .up::before {
-  content: '👆';
+  content: "👆";
 }
 
 .down::before {
-  content: '👇';
+  content: "👇";
 }
 
 td {

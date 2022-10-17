@@ -6,13 +6,13 @@
 </template>
 
 <script>
-import PxHeader from '@/components/PxHeader'
+import PxHeader from "@/components/PxHeader";
 export default {
-  name: 'App',
+  name: "App",
   components: {
     PxHeader,
   },
-}
+};
 </script>
 
 <style>
